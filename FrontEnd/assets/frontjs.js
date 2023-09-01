@@ -10,9 +10,26 @@ for (let i=0; i<works.length; i++) {
             <figcaption>${titre}</figcaption>
         </figure>
         `
-
     let gallery = document.querySelector(".gallery")
     gallery.innerHTML += figure
-    
-    console.log (titre,image);
 }
+
+for (let i=0;i<4;i++) {
+    let bouton = document.querySelector (".b"+i);
+    let radio = document.querySelector (".r"+i);
+    if (radio.checked == false) {
+        bouton.classList.remove ("checked");
+    }
+    bouton.addEventListener("click", () => {
+        radio.checked=true;
+        bouton.classList.add ("checked");
+        for (let i=0;i<4;i++) {
+            let bouton = document.querySelector (".b"+i);
+            let radio = document.querySelector (".r"+i);
+            if (radio.checked == false) {
+                bouton.classList.remove ("checked");
+            }
+        }
+    })
+}
+
