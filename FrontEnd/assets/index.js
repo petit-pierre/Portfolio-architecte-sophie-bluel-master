@@ -19,7 +19,7 @@ async function displayCategories () {
         console.log (category)
         const inputElement = document.createElement ("input")
         inputElement.setAttribute ("type","radio")
-        inputElement.classList.add ("radio")
+        inputElement.classList.add ("radio","r"+category.id)
         const labelElement = document.createElement ("label")
         labelElement.setAttribute ("data-id",category.id)
         labelElement.classList.add ("button","b"+category.id)
@@ -28,29 +28,53 @@ async function displayCategories () {
             console.log (event)
             for (category of categories){
                 let otherone = document.querySelector (".b"+category.id)
+                let radio = document.querySelector (".r"+category.id)
                 otherone.classList.remove ("checked")
+                radio.checked=false
             }
             labelElement.classList.add ("checked")
+            inputElement.checked=true
+            let gallery = document.querySelector(".gallery")
+            gallery.innerHTML = ""
+            displayDom ()
         })
         fieldset.appendChild (inputElement)
         fieldset.appendChild (labelElement)
     }
+    
 } 
 displayCategories ()
-//displayDom ();
+displayDom ()
 
 async function displayDom () {
     const works = await getWorks ()
     let gallery = document.querySelector(".gallery")
-    for (let work of works) {}
-
-    
+    const categories = await getCategory ()
+    let selection=works
+    if (document.querySelector (".r1").checked == true){
+        selection = works.filter(function (works) {
+            return works.categoryId == "1";
+        })
+    }
+    if (document.querySelector (".r2").checked == true){
+        selection = works.filter(function (works) {
+            return works.categoryId == "2";
+        })
+    }
+    if (document.querySelector (".r3").checked == true){
+        selection = works.filter(function (works) {
+            return works.categoryId == "3";
+        })
+    }
+    for (let i=0; i<selection.length; i++) {
+        let image=selection[i].imageUrl
+        let titre=selection[i].title
         let figure = `
-            <figure class="figure${i}">
+            <figure class="figure">
                 <img src="${image}" alt="${titre}">
                 <figcaption>${titre}</figcaption>
             </figure>
             `
         gallery.innerHTML += figure
-    radio ();
+    }
 }
