@@ -1,12 +1,12 @@
 async function getWorks () {
     const worksGet = await fetch("http://localhost:5678/api/works")
-    const works = await worksGet.json();
+    const works = await worksGet.json()
     return works
 }
 
 async function getCategory () {
     const categoriesGet = await fetch("http://localhost:5678/api/categories")
-    const categories = await categoriesGet.json();
+    const categories = await categoriesGet.json()
     const all = {id:-1,name:"Tous"}
     categories.unshift (all)
     return categories
@@ -22,10 +22,15 @@ async function displayCategories () {
         inputElement.classList.add ("radio")
         const labelElement = document.createElement ("label")
         labelElement.setAttribute ("data-id",category.id)
-        labelElement.classList.add ("button")
+        labelElement.classList.add ("button","b"+category.id)
         labelElement.textContent=category.name
         labelElement.addEventListener ("click", (event) => {
             console.log (event)
+            for (category of categories){
+                let otherone = document.querySelector (".b"+category.id)
+                otherone.classList.remove ("checked")
+            }
+            labelElement.classList.add ("checked")
         })
         fieldset.appendChild (inputElement)
         fieldset.appendChild (labelElement)
@@ -34,13 +39,12 @@ async function displayCategories () {
 displayCategories ()
 //displayDom ();
 
-function displayDom () {
+async function displayDom () {
+    const works = await getWorks ()
     let gallery = document.querySelector(".gallery")
+    for (let work of works) {}
 
-
-    for (let i=0; i<selection.length; i++) {
-        const titre = selection[i].title
-        const image = selection[i].imageUrl
+    
         let figure = `
             <figure class="figure${i}">
                 <img src="${image}" alt="${titre}">
@@ -48,6 +52,5 @@ function displayDom () {
             </figure>
             `
         gallery.innerHTML += figure
-    };
     radio ();
 }
