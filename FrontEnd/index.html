@@ -9,15 +9,16 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<script src="./assets/index.js" defer></script>
 </head>
 <body>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
 		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<li>login</li>
+			<a href="#portfolio"><li>projets</li></a>
+			<a href="#contact"><li>contact</li></a>
+			<a href="login.html"><li>login</li></a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -36,17 +37,8 @@
 	</section>
 	<section id="portfolio">
 		<h2>Mes Projets</h2>
+		<fieldset class="buttonsCategories"></fieldset>
 		<div class="gallery">
-			<fieldset class="buttons">
-				<input type="radio" checked class="radio r0" name="selected">
-				<label class="button checked b0">Tous</label>
-				<input type="radio" class="radio r1"name="selected">
-				<label class="button b1">Objets</label>
-				<input type="radio" class="radio r2"name="selected">
-				<label class="button b2">Appartements</label>
-				<input type="radio" class="radio r3"name="selected">
-				<label class="button b3">Hôtels & restaurants</label>
-			</fieldset>
 		</div>
 	</section>
 	<section id="contact">
@@ -72,5 +64,4 @@
 	</nav>
 </footer>
 </body>
-<script type="module" src="./assets/frontjs.js"></script>
 </html>
