@@ -1,37 +1,35 @@
-async function post () {
-    const post = await fetch("http://localhost:5678/users/login", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(mail,pass)
-    });
-    let result = await response.json();
-    alert(result.message);
-    console.log (result.message)
+async function post() {
+  const post = await fetch("http://localhost:5678/users/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+    },
+    body: JSON.stringify(mail, pass),
+  });
+  let result = await response.json();
+  alert(result.message);
+  console.log(result.message);
+  console.log(mail.value);
+  console.log(pass.value);
 }
 
-email ()
-password ()
-post ()
+submit();
 
-function email () {
-    let mail = document.getElementById("email")
-    console.log (mail.value)
+function email() {
+  let mail = document.getElementById("email");
+  return mail.value;
 }
 
-function password () {
-    let pass = document.getElementById("name")
-    console.log (pass.value)
+function password() {
+  let pass = document.getElementById("name");
+  return pass.value;
 }
 
-function submit () {
-    let form = document.getElementById ("submit")
-    form.addEventListener("submit", (event) => {
+function submit() {
+  let form = document.getElementById("submit");
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
-})}
-
-function forgot () {
-    
+  });
 }
 
+function forgot() {}
