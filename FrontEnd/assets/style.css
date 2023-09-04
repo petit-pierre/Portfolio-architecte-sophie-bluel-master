@@ -168,9 +168,14 @@ li:hover {
 	width: 100%;
 
 }
+#login a {
+	text-align: center;
+	text-decoration: underline;
+	cursor: pointer;
+}
 #contact, #login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > *, #login > * {
 	text-align: center;
@@ -209,6 +214,7 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+	cursor: pointer;
 }
 
 footer nav ul {

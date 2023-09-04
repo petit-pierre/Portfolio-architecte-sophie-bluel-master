@@ -51,21 +51,13 @@ async function displayDom () {
     let gallery = document.querySelector(".gallery")
     const categories = await getCategory ()
     let selection=works
-    if (document.querySelector (".r1").checked == true){
-        selection = works.filter(function (works) {
-            return works.categoryId == "1";
-        })
+    for (let i=1; i<categories.length; i++){
+        if (document.querySelector (".r"+i).checked == true){
+            selection = works.filter(function (works) {
+                return works.categoryId == i;
+            })
     }
-    if (document.querySelector (".r2").checked == true){
-        selection = works.filter(function (works) {
-            return works.categoryId == "2";
-        })
-    }
-    if (document.querySelector (".r3").checked == true){
-        selection = works.filter(function (works) {
-            return works.categoryId == "3";
-        })
-    }
+}
     for (let i=0; i<selection.length; i++) {
         let image=selection[i].imageUrl
         let titre=selection[i].title
