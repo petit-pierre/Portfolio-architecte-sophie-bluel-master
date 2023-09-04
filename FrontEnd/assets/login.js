@@ -25,11 +25,10 @@ function password() {
   return pass.value;
 }
 
-function submit() {
+async function submit() {
   let form = document.getElementById("submit");
-  form.addEventListener("submit", (event) => {
+  form.addEventListener(/*"submit"*/ "click", (event) => {
     event.preventDefault();
+    post();
   });
 }
-
-function forgot() {}
