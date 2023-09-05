@@ -1,52 +1,47 @@
-let email;
-let password;
-let response = "test";
+let pass;
 
 async function post() {
-  let formData = new FormData();
-  formData.append("email", email.value);
-  formData.append("password", password.value);
-  console.log(formData);
+  const login = { email: email.value, password: pass.value };
   const post = await fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json;charset=utf-8",
     },
-    body: JSON.stringify(formData),
-  });
-
-  let result = await response.json();
-  alert(result.message);
-  console.log(result.message);
+    body: JSON.stringify(login),
+  })
+    .then((file) => file.json())
+    .then((data) => console.log(data));
 }
 
 submit();
 
 function emailListen() {
-  email = document.getElementById("email");
+  let email = document.getElementById("email");
   return email.value;
 }
 
 function passwordListen() {
-  password = document.getElementById("name");
-  return password.value;
+  pass = document.getElementById("name");
+  return pass.value;
 }
 
 async function submit() {
   let form = document.getElementById("submit");
-  form.addEventListener(/*"submit"*/ "click", (event) => {
+  form.addEventListener("click", (event) => {
     event.preventDefault();
     emailListen();
     let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
     if (emailRegExp.test(email.value)) {
-      console.log("mail ok");
+      post();
     } else {
       console.log("ceci n'est pas un mail");
     }
     passwordListen();
-    if (password.value === "") {
+    if (pass.value === "") {
       console.log("le mot de passe est vide");
+    } else {
+      post();
     }
-    post();
   });
 }
