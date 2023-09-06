@@ -12,13 +12,19 @@
 	<script src="./assets/index.js" defer></script>
 </head>
 <body>
+	<div class="loged hidden">
+		<img src="./assets/icons/Vector.png">
+		<p>Mode édition</p>
+		<button>publier les changements</button>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
 		<ul>
-			<a href="#portfolio"><li>projets</li></a>
-			<a href="#contact"><li>contact</li></a>
-			<a href="login.html"><li>login</li></a>
+			<a class="liens" href="#portfolio"><li>projets</li></a>
+			<a class="liens" href="#contact"><li>contact</li></a>
+			<a class="liens" href="login.html"><li class="log">login</li></a>
+			<a class="logedout liens"><li class="logout hidden"> logout</li></a>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -26,7 +32,9 @@
 <main>
 	<section id="introduction">
 		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
+			<img class="introImg" src="./assets/images/sophie-bluel.png" alt="">
+			<img class="modif hidden" src="./assets/icons/VectorBlack.png">
+			<p class="modifier hidden">modifier</p>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,7 +44,11 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="justif">
+			<h2>Mes Projets</h2>
+			<img class="modif2 hidden" src="./assets/icons/VectorBlack.png">
+			<p class="modifier2 hidden">modifier</p>
+		</div>
 		<fieldset class="buttonsCategories"></fieldset>
 		<div class="gallery">
 		</div>

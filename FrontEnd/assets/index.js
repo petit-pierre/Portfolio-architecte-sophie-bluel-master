@@ -52,6 +52,7 @@ async function displayCategories() {
 
 displayCategories();
 displayDom();
+login();
 
 async function displayDom(works = null) {
   if (works == null) {
@@ -77,4 +78,46 @@ function createWork(work) {
             </figure>
             `;
   return figure;
+}
+
+function login() {
+  const token = window.localStorage.getItem("token");
+  if (token != "") {
+    let blackFlag = document.querySelector(".loged");
+    blackFlag.classList.remove("hidden");
+    let log = document.querySelector(".log");
+    log.classList.add("hidden");
+    let logout = document.querySelector(".logout");
+    logout.classList.remove("hidden");
+    let modif = document.querySelector(".modif");
+    modif.classList.remove("hidden");
+    let modif2 = document.querySelector(".modif2");
+    modif2.classList.remove("hidden");
+    let modifier = document.querySelector(".modifier");
+    modifier.classList.remove("hidden");
+    let modifier2 = document.querySelector(".modifier2");
+    modifier2.classList.remove("hidden");
+    let buttonsCategories = document.querySelector(".buttonsCategories");
+    buttonsCategories.classList.add("hidden");
+    let logedout = document.querySelector(".logedout");
+    logedout.addEventListener("click", () => {
+      window.localStorage.removeItem("token");
+      let blackFlag = document.querySelector(".loged");
+      blackFlag.classList.add("hidden");
+      let log = document.querySelector(".log");
+      log.classList.remove("hidden");
+      let logout = document.querySelector(".logout");
+      logout.classList.add("hidden");
+      let modif = document.querySelector(".modif");
+      modif.classList.add("hidden");
+      let modif2 = document.querySelector(".modif2");
+      modif2.classList.add("hidden");
+      let modifier = document.querySelector(".modifier");
+      modifier.classList.add("hidden");
+      let modifier2 = document.querySelector(".modifier2");
+      modifier2.classList.add("hidden");
+      let buttonsCategories = document.querySelector(".buttonsCategories");
+      buttonsCategories.classList.remove("hidden");
+    });
+  }
 }

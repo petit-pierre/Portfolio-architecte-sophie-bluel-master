@@ -1,3 +1,80 @@
+/* mode eition */
+.loged {
+	background-color: black;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	width: 200%;
+	margin-left: -50%;
+	height: 59px;
+}
+.loged img {
+	width: 20px;
+	height: 20px;
+	padding-top: 18px;
+	margin-right: 20px;
+}
+
+.loged p {
+	padding-top: 20px;
+}
+
+.loged button {
+	margin-left: 20px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background-color: white;
+	border-radius: 20px;
+	border-style: none;
+	padding-left: 23px;
+	padding-right: 23px;
+	cursor: pointer;
+}
+
+.modif {
+	width: 20px;
+	height: 20px;
+	margin-left: 10%;
+	padding-top: 10px;
+	margin-bottom: -5px;
+	cursor: pointer;
+}
+
+.modif2 {
+	width: 20px;
+	height: 20px;
+	margin-left: 20px;
+	padding-top: 6px;
+	cursor: pointer;
+}
+
+.modifier {
+	display: inline;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.modifier2 {
+	margin-top: 8px;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.justif {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.hidden {
+	display: none;
+}
+
+.liens {
+	color: black;
+	text-decoration: none
+}
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -106,7 +183,7 @@ li:hover {
 #introduction figure {
 	flex: 1
 }
-#introduction img {
+.introImg {
 	display: block;
 	margin: auto;
 	width: 80%;
