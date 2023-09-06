@@ -146,25 +146,14 @@ function startModal() {
   });
 }
 
-async function modal(works = null) {
+function modal() {
   //affichage de la modal
   let modal = document.querySelector(".modal-wrapper");
   modal.classList.remove("hidden");
   let modalContainer = document.querySelector(".modal");
   modalContainer.classList.remove("hiddene");
   //affichage de la gallerie
-  if (works == null) {
-    works = await getWorks();
-  }
-  let workElement = "";
-  for (let work of works) {
-    workElement += createWorkForModal(work);
-  }
-  let gallery = document.querySelector(".modalGallery");
-  gallery.innerHTML = workElement;
-  let fig = document.querySelector(".fig");
-  fig.innerHTML =
-    '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
+  displayGalleryModal();
   //fermeture de la modal
   modalContainer.addEventListener("click", (event) => {
     if (!modal.contains(event.target)) {
@@ -177,4 +166,22 @@ async function modal(works = null) {
     modal.classList.add("hidden");
     modalContainer.classList.add("hiddene");
   });
+}
+
+async function displayGalleryModal(works = null) {
+  let modal = document.querySelector(".modal-wrapper");
+  modal.innerHTML =
+    '<div class="logos"><img class="logo cross" src="./assets/icons/Cross.png"></div><p>Galerie photo</p><div class="modalGallery"></div><div class="line"></div><button class="modalButton">Ajouter une photo</button>';
+  if (works == null) {
+    works = await getWorks();
+  }
+  let workElement = "";
+  for (let work of works) {
+    workElement += createWorkForModal(work);
+  }
+  let gallery = document.querySelector(".modalGallery");
+  gallery.innerHTML = workElement;
+  let fig = document.querySelector(".fig");
+  fig.innerHTML =
+    '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
 }
