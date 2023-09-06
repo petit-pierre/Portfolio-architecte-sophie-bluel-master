@@ -217,6 +217,12 @@ input[type="submit"]{
 	cursor: pointer;
 }
 
+.error {
+	text-align: center;
+	color: red;
+	margin-top: 30px;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;

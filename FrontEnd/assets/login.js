@@ -1,5 +1,3 @@
-let pass;
-
 async function post() {
   const login = { email: email.value, password: pass.value };
   const post = await fetch("http://localhost:5678/api/users/login", {
@@ -9,9 +7,13 @@ async function post() {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(login),
-  })
-    .then((file) => file.json())
-    .then((data) => console.log(data));
+  });
+  let result = await post.json();
+  console.log(result);
+  if (result.token == null) {
+    error();
+  }
+  return result;
 }
 
 submit();
@@ -31,17 +33,17 @@ async function submit() {
   form.addEventListener("click", (event) => {
     event.preventDefault();
     emailListen();
-    let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-    if (emailRegExp.test(email.value)) {
-      post();
-    } else {
-      console.log("ceci n'est pas un mail");
-    }
     passwordListen();
-    if (pass.value === "") {
-      console.log("le mot de passe est vide");
-    } else {
+    let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
+    if (emailRegExp.test(email.value) && pass.value != "") {
       post();
+    } else {
+      error();
     }
   });
+}
+
+function error() {
+  let error = document.querySelector(".error");
+  error.textContent = "e-mail ou mot de passe invalide";
 }
