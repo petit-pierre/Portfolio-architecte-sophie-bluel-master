@@ -1,0 +1,109 @@
+.modal {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.hiddene {
+    background: rgba(0, 0, 0, 0);
+    width: 0%;
+    height: 0%;
+}
+
+.modal-wrapper {
+    background-color: white;
+    width: 600px;
+    padding: 20px;
+    max-width: calc(100vw -20px);
+    max-height: calc(100vh -20px);
+    border-radius: 20px;
+    z-index: 2;
+}
+
+.modal-wrapper p {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.logos {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.logo {
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
+}
+
+.modalGallery {
+    width: 600px;
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px;
+    justify-content: center;
+}
+
+.modalGallery .gal {
+    width: 76px;
+    margin: 10px;
+}
+
+.fig {
+    margin-left: 10px;
+    margin-top: -30px;
+    cursor: pointer;
+}
+
+.galLogo{
+    position: relative;
+    z-index: 3;
+    top: -110px;
+    left: 65px;
+    width: 10px;
+    height: 12px;
+    background-color: black;
+    padding: 4px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.crossedArrow {
+    top: -116px;
+    left: 35px;
+}
+
+.fig1 {
+    position: relative;
+    left: -10px;
+}
+
+.line {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    width: 480px;
+    margin-left: 60px;
+    border-bottom: 1px solid black;
+    margin-top: 50px;
+}
+
+.modalButton {
+    margin-top: 40px;
+    margin-left: 180px;
+    padding-left: 49px;
+    padding-right: 49px;
+    color: white;
+	background-color: #1D6154;
+	border-radius: 60px ;
+	cursor: pointer;
+    
+}

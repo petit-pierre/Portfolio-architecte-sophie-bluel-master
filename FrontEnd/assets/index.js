@@ -38,7 +38,6 @@ async function displayCategories() {
       labelElement.classList.add("checked");
     }
     labelElement.addEventListener("click", async (event) => {
-      console.log(event);
       let otherone = document.querySelector(".checked");
       otherone.classList.remove("checked");
       event.target.classList.add("checked");
@@ -59,7 +58,6 @@ async function displayDom(works = null) {
     works = await getWorks();
   }
   let workElement = "";
-  console.log(works);
   for (let work of works) {
     workElement += createWork(work);
   }
@@ -75,6 +73,20 @@ function createWork(work) {
             <figure class="figure">
                 <img src="${image}" alt="${titre}">
                 <figcaption>${titre}</figcaption>
+            </figure>
+            `;
+  return figure;
+}
+
+function createWorkForModal(work) {
+  let image = work.imageUrl;
+  let titre = work.title;
+  let count = work.id;
+  let figure = `
+            <figure class="figure">
+                <img class="gal" src="${image}" alt="${titre}">
+                <img class="galLogo trash${count}" src="./assets/icons/trash-can-solid.png">
+                <figcaption class = "fig">éditer</figcaption>
             </figure>
             `;
   return figure;
@@ -100,6 +112,7 @@ function login() {
     let buttonsCategories = document.querySelector(".buttonsCategories");
     buttonsCategories.classList.add("hidden");
     let logedout = document.querySelector(".logedout");
+    startModal();
     logedout.addEventListener("click", () => {
       window.localStorage.removeItem("token");
       let blackFlag = document.querySelector(".loged");
@@ -120,4 +133,48 @@ function login() {
       buttonsCategories.classList.remove("hidden");
     });
   }
+}
+
+function startModal() {
+  modif2 = document.querySelector(".modif2");
+  modif2.addEventListener("click", () => {
+    modal();
+  });
+  modifier2 = document.querySelector(".modifier2");
+  modifier2.addEventListener("click", () => {
+    modal();
+  });
+}
+
+async function modal(works = null) {
+  //affichage de la modal
+  let modal = document.querySelector(".modal-wrapper");
+  modal.classList.remove("hidden");
+  let modalContainer = document.querySelector(".modal");
+  modalContainer.classList.remove("hiddene");
+  //affichage de la gallerie
+  if (works == null) {
+    works = await getWorks();
+  }
+  let workElement = "";
+  for (let work of works) {
+    workElement += createWorkForModal(work);
+  }
+  let gallery = document.querySelector(".modalGallery");
+  gallery.innerHTML = workElement;
+  let fig = document.querySelector(".fig");
+  fig.innerHTML =
+    '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
+  //fermeture de la modal
+  modalContainer.addEventListener("click", (event) => {
+    if (!modal.contains(event.target)) {
+      modal.classList.add("hidden");
+      modalContainer.classList.add("hiddene");
+    }
+  });
+  let cross = document.querySelector(".cross");
+  cross.addEventListener("click", () => {
+    modal.classList.add("hidden");
+    modalContainer.classList.add("hiddene");
+  });
 }
