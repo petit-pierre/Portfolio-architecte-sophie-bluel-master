@@ -12,8 +12,10 @@ async function post() {
   console.log(result);
   if (result.token == null) {
     error();
+  } else {
+    window.localStorage.setItem("token", result.token);
+    document.location.href = "./index.html";
   }
-  return result;
 }
 
 submit();
