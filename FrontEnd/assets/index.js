@@ -83,7 +83,7 @@ function createWorkForModal(work) {
   let titre = work.title;
   let count = work.id;
   let figure = `
-            <figure class="figure">
+            <figure class="figureModal">
                 <img class="gal" src="${image}" alt="${titre}">
                 <img class="galLogo trash${count}" src="./assets/icons/trash-can-solid.png">
                 <figcaption class = "fig">éditer</figcaption>

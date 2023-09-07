@@ -60,15 +60,15 @@
 
 .fig {
     margin-left: 10px;
-    margin-top: -30px;
+    margin-top: -10px;
     cursor: pointer;
 }
 
 .galLogo{
-    position: relative;
+    position: absolute;
     z-index: 3;
-    top: -110px;
-    left: 65px;
+    top: 13px;
+    right: 18px;
     width: 10px;
     height: 12px;
     background-color: black;
@@ -78,8 +78,11 @@
 }
 
 .crossedArrow {
-    top: -116px;
-    left: 35px;
+    left: 42px;
+}
+
+.figureModal {
+    position: relative;
 }
 
 .fig1 {
