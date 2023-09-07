@@ -187,9 +187,9 @@ async function displayGalleryModal(works = null) {
     '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
 }
 
-function trash(works = null) {
+async function trash(works = null) {
   if (works == null) {
-    works = getWorks();
+    works = await getWorks();
   }
   for (let i = 1; i < works.length + 1; i++) {
     let trash = 1;
