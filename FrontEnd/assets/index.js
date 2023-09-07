@@ -85,7 +85,7 @@ function createWorkForModal(work) {
   let figure = `
             <figure class="figureModal">
                 <img class="gal" src="${image}" alt="${titre}">
-                <img class="galLogo trash${count}" src="./assets/icons/trash-can-solid.png">
+                <img class="galLogo trash${count}" id = "trash${count}" src="./assets/icons/trash-can-solid.png">
                 <figcaption class = "fig">éditer</figcaption>
             </figure>
             `;
@@ -114,7 +114,7 @@ function login() {
     let logedout = document.querySelector(".logedout");
     startModal();
     logedout.addEventListener("click", () => {
-      window.localStorage.removeItem("token");
+      window.localStorage.setItem("token", "");
       let blackFlag = document.querySelector(".loged");
       blackFlag.classList.add("hidden");
       let log = document.querySelector(".log");
@@ -166,6 +166,7 @@ function modal() {
     modal.classList.add("hidden");
     modalContainer.classList.add("hiddene");
   });
+  trash();
 }
 
 async function displayGalleryModal(works = null) {
@@ -184,4 +185,35 @@ async function displayGalleryModal(works = null) {
   let fig = document.querySelector(".fig");
   fig.innerHTML =
     '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
+}
+
+function trash(works = null) {
+  if (works == null) {
+    works = getWorks();
+  }
+  for (let i = 1; i < works.length + 1; i++) {
+    let trash = 1;
+    trash = document.querySelector(".trash" + i);
+
+    if (trash == null) {
+      console.log("bug");
+    }
+    trash.addEventListener("click", (i) => {
+      delette(i);
+    });
+  }
+}
+
+async function delette(i) {
+  const token = window.localStorage.getItem("token");
+  const post = await fetch("http://localhost:5678/api/works/" + i, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      "Content-Type": "application/json;charset=utf-8",
+    },
+  });
+  displayGalleryModal();
+  displayDom();
 }
