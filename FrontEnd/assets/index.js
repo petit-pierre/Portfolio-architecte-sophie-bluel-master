@@ -219,7 +219,7 @@ async function delette(i) {
   displayDom();
 }
 
-function modalPicture() {
+async function modalPicture(categories) {
   let logoDiv = document.querySelector(".logos");
   const arrowLeft = document.createElement("img");
   arrowLeft.setAttribute("src", "./assets/icons/ArrowLeft.png");
@@ -228,7 +228,6 @@ function modalPicture() {
   arrowLeft.addEventListener("click", () => {
     modal();
   });
-  const mod = document.querySelector(".modal-wrapper");
   const photos = document.querySelector(".modalGallery");
   photos.remove();
   let titre = document.querySelector(".titre");
@@ -250,4 +249,33 @@ function modalPicture() {
   pictureText.textContent = "jpg, png : 4mo max";
 
   pictureDiv.appendChild(pictureText);
+  const pictureDiv2 = document.createElement("div");
+  titre.appendChild(pictureDiv2);
+  const pictureTitle = document.createElement("p");
+  pictureTitle.textContent = "Titre";
+  pictureTitle.classList.add("pictureTextBottom");
+  pictureDiv2.appendChild(pictureTitle);
+  const inputText = document.createElement("input");
+  inputText.setAttribute("type", "text");
+  inputText.classList.add("inputText");
+  pictureDiv2.appendChild(inputText);
+  const pictureTitle2 = document.createElement("p");
+  pictureTitle2.textContent = "Catégorie";
+  pictureTitle2.classList.add("pictureTextBottom");
+  pictureDiv2.appendChild(pictureTitle2);
+  const inputCategorie = document.createElement("select");
+
+  inputCategorie.classList.add("inputText");
+  inputCategorie.classList.add("inputCategories");
+  pictureDiv2.appendChild(inputCategorie);
+  const categories2 = await getCategory();
+  for (cat of categories2) {
+    let option = document.createElement("option");
+    option.setAttribute("value", cat);
+
+    option.classList.add("option");
+    let inputCategoriePlace = document.querySelector(".inputCategories");
+    inputCategoriePlace.appendChild(option);
+    option.textContent = cat.name;
+  }
 }
