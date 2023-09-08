@@ -196,12 +196,14 @@ async function trash(works = null) {
   if (works == null) {
     works = await getWorks();
   }
-  for (let i = 1; i < works.length + 1; i++) {
+  i = 2;
+  for (wor of works) {
     let trashbin = document.querySelector(".trash" + i);
     console.log("trash" + i);
     trashbin.addEventListener("click", (i) => {
       delette(i);
     });
+    i = i + 1;
   }
 }
 
