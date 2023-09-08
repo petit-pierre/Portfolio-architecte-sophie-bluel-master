@@ -148,10 +148,11 @@ function startModal() {
 
 function modal() {
   //affichage de la modal
-  let modal = document.querySelector(".modal-wrapper");
-  modal.classList.remove("hidden");
   let modalContainer = document.querySelector(".modal");
   modalContainer.classList.remove("hiddene");
+  let modal = document.querySelector(".modal-wrapper");
+  modal.classList.remove("hidden");
+
   //affichage de la gallerie
   displayGalleryModal();
   //fermeture de la modal
@@ -166,13 +167,17 @@ function modal() {
     modal.classList.add("hidden");
     modalContainer.classList.add("hiddene");
   });
+  let buttonPostPicture = document.querySelector(".modalButton");
+  buttonPostPicture.addEventListener("click", () => {
+    modalPicture();
+  });
   trash();
 }
 
 async function displayGalleryModal(works = null) {
   let modal = document.querySelector(".modal-wrapper");
   modal.innerHTML =
-    '<div class="logos"><img class="logo cross" src="./assets/icons/Cross.png"></div><p>Galerie photo</p><div class="modalGallery"></div><div class="line"></div><button class="modalButton">Ajouter une photo</button>';
+    '<div class="logos"><img class="logo cross" src="./assets/icons/Cross.png"></div><p class= "titre">Galerie photo</p><div class="modalGallery"></div><div class="line"></div><button class="modalButton">Ajouter une photo</button>';
   if (works == null) {
     works = await getWorks();
   }
@@ -192,13 +197,9 @@ async function trash(works = null) {
     works = await getWorks();
   }
   for (let i = 1; i < works.length + 1; i++) {
-    let trash = 1;
-    trash = document.querySelector(".trash" + i);
-
-    if (trash == null) {
-      console.log("bug");
-    }
-    trash.addEventListener("click", (i) => {
+    let trashbin = document.querySelector(".trash" + i);
+    console.log("trash" + i);
+    trashbin.addEventListener("click", (i) => {
       delette(i);
     });
   }
@@ -216,4 +217,37 @@ async function delette(i) {
   });
   displayGalleryModal();
   displayDom();
+}
+
+function modalPicture() {
+  let logoDiv = document.querySelector(".logos");
+  const arrowLeft = document.createElement("img");
+  arrowLeft.setAttribute("src", "./assets/icons/ArrowLeft.png");
+  arrowLeft.classList.add("arrowLeft");
+  logoDiv.appendChild(arrowLeft);
+  arrowLeft.addEventListener("click", () => {
+    modal();
+  });
+  const mod = document.querySelector(".modal-wrapper");
+  const photos = document.querySelector(".modalGallery");
+  photos.remove();
+  let titre = document.querySelector(".titre");
+  titre.textContent = "Ajout photo";
+  const bluePicture = document.createElement("div");
+  bluePicture.classList.add("bluePicture");
+  titre.appendChild(bluePicture);
+  const logoPicture = document.createElement("img");
+  logoPicture.setAttribute("src", "./assets/icons/Picture.png");
+  logoPicture.classList.add("logoPicture");
+  const pictureDiv = document.querySelector(".bluePicture");
+  pictureDiv.appendChild(logoPicture);
+  const buttonPictureAdd = document.createElement("button");
+  buttonPictureAdd.classList.add("buttonPictureAdd");
+  pictureDiv.appendChild(buttonPictureAdd);
+  buttonPictureAdd.textContent = "+ Ajouter photo";
+  const pictureText = document.createElement("p");
+  pictureText.classList.add("pictureText");
+  pictureText.textContent = "jpg, png : 4mo max";
+
+  pictureDiv.appendChild(pictureText);
 }

@@ -26,7 +26,7 @@
     z-index: 2;
 }
 
-.modal-wrapper p {
+.titre {
     font-size: 26px;
     text-align: center;
     margin-bottom: 40px;
@@ -93,8 +93,8 @@
 .line {
     grid-column-start: 1;
     grid-column-end: 6;
-    width: 480px;
-    margin-left: 60px;
+    width: 420px;
+    margin-left: 90px;
     border-bottom: 1px solid black;
     margin-top: 50px;
 }
@@ -109,4 +109,46 @@
 	border-radius: 60px ;
 	cursor: pointer;
     
+}
+
+.bluePicture {
+    width: 420px;
+    height: 169px;
+    background-color:#E8F1F6;
+    margin: auto;
+    margin-top: 50px;
+    position: relative;
+}
+
+.logoPicture {
+    position: absolute;
+    width: 76px;
+    height: 76px;
+    left: 172px;
+    top : 16px;
+}
+
+.buttonPictureAdd {
+    color: #306685;
+    margin-top : 100px;
+    background-color: #CBD6DC;
+    border-radius: 20px;
+    padding-left: 33px;
+    padding-right: 33px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-style: none;
+    cursor: pointer;
+}
+
+.pictureText {
+    color: #444;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.arrowLeft {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
