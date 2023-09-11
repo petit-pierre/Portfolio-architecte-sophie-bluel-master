@@ -156,13 +156,15 @@ function modal() {
 
   //affichage de la gallerie
   displayGalleryModal();
-  //fermeture de la modal
+  //fermeture de la modal (bug avec la section de code ci dessous)
+
   modalContainer.addEventListener("click", (event) => {
     if (!modal.contains(event.target)) {
       modal.classList.add("hidden");
       modalContainer.classList.add("hiddene");
     }
   });
+
   let cross = document.querySelector(".cross");
   cross.addEventListener("click", () => {
     modal.classList.add("hidden");
@@ -172,13 +174,14 @@ function modal() {
   buttonPostPicture.addEventListener("click", () => {
     modalPicture();
   });
+  variable = 0;
   trash();
 }
 
 async function displayGalleryModal(works = null) {
   let modal = document.querySelector(".modal-wrapper");
   modal.innerHTML =
-    '<div class="logos"><img class="logo cross" src="./assets/icons/Cross.png"></div><p class= "titre">Galerie photo</p><div class="modalGallery"></div><div class="line"></div><button class="modalButton">Ajouter une photo</button>';
+    '<div class="logos"><img class="logo cross" src="./assets/icons/Cross.png"></div><p class= "titre">Galerie photo</p><div class="modalGallery"></div><div class="line"></div><button class="modalButton">Ajouter une photo</button><p class ="bottom"></p>';
   if (works == null) {
     works = await getWorks();
   }
@@ -245,14 +248,24 @@ async function modalPicture(categories) {
   logoPicture.classList.add("logoPicture");
   const pictureDiv = document.querySelector(".bluePicture");
   pictureDiv.appendChild(logoPicture);
-  const buttonPictureAdd = document.createElement("button");
-  buttonPictureAdd.classList.add("buttonPictureAdd");
-  pictureDiv.appendChild(buttonPictureAdd);
-  buttonPictureAdd.textContent = "+ Ajouter photo";
+  const buttonPictureAdd = document.createElement("input");
+  const divForInput = document.createElement("div");
+  divForInput.classList.add("divForInput");
+  buttonPictureAdd.setAttribute("type", "file");
+  buttonPictureAdd.setAttribute("accept", "image/png, image/jpeg");
+  buttonPictureAdd.setAttribute("size", 4194304);
+  buttonPictureAdd.setAttribute("id", "file");
+  buttonPictureAdd.classList.add("buttonPictureAddHidden");
+  const labelForButton = document.createElement("label");
+  labelForButton.setAttribute("for", "file");
+  labelForButton.classList.add("buttonPictureAdd");
+  labelForButton.textContent = "+ Ajouter photo";
+  pictureDiv.appendChild(divForInput);
+  divForInput.appendChild(labelForButton);
+  divForInput.appendChild(buttonPictureAdd);
   const pictureText = document.createElement("p");
   pictureText.classList.add("pictureText");
   pictureText.textContent = "jpg, png : 4mo max";
-
   pictureDiv.appendChild(pictureText);
   const pictureDiv2 = document.createElement("div");
   titre.appendChild(pictureDiv2);
@@ -269,7 +282,6 @@ async function modalPicture(categories) {
   pictureTitle2.classList.add("pictureTextBottom");
   pictureDiv2.appendChild(pictureTitle2);
   const inputCategorie = document.createElement("select");
-
   inputCategorie.classList.add("inputText");
   inputCategorie.classList.add("inputCategories");
   pictureDiv2.appendChild(inputCategorie);
@@ -284,4 +296,29 @@ async function modalPicture(categories) {
       option.textContent = cat.name;
     }
   }
+  const modalButton = document.querySelector(".modalButton");
+  const bottom = document.querySelector(".bottom");
+  modalButton.remove();
+  const pictureButton = document.createElement("button");
+  pictureButton.textContent = "Valider";
+  pictureButton.classList.add("pictureButton");
+  pictureButton.classList.add("inactive");
+  const line = document.querySelector(".line");
+  bottom.append(pictureButton);
+
+  let imageDownload = document.getElementById("file");
+  imageDownload.addEventListener("change", (event) => {
+    const imagePath = event.target.value;
+    const fileList = event.target.files;
+    console.log(fileList, imagePath);
+    const userPicture = document.createElement("img");
+    userPicture.file = file;
+    console.log(userPicture.file);
+    objectURL = URL.createObjectURL(fileList[0]);
+    userPicture.setAttribute("src", objectURL);
+    userPicture.classList.add("userPicture");
+    bluePicture.appendChild(userPicture);
+    buttonPictureAdd.remove();
+    labelForButton.remove();
+  });
 }
