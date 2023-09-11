@@ -78,14 +78,15 @@ function createWork(work) {
   return figure;
 }
 
-function createWorkForModal(work) {
+function createWorkForModal(work, i) {
   let image = work.imageUrl;
   let titre = work.title;
   let count = work.id;
+
   let figure = `
             <figure class="figureModal">
                 <img class="gal" src="${image}" alt="${titre}">
-                <img class="galLogo trash${count}" id = "trash${count}" src="./assets/icons/trash-can-solid.png">
+                <img class="galLogo trash" id="${count}" src="./assets/icons/trash-can-solid.png">
                 <figcaption class = "fig">éditer</figcaption>
             </figure>
             `;
@@ -182,8 +183,10 @@ async function displayGalleryModal(works = null) {
     works = await getWorks();
   }
   let workElement = "";
+  let i = 0;
   for (let work of works) {
-    workElement += createWorkForModal(work);
+    i++;
+    workElement += createWorkForModal(work, i);
   }
   let gallery = document.querySelector(".modalGallery");
   gallery.innerHTML = workElement;
@@ -196,20 +199,20 @@ async function trash(works = null) {
   if (works == null) {
     works = await getWorks();
   }
-  i = 2;
-  for (wor of works) {
-    let trashbin = document.querySelector(".trash" + i);
-    console.log("trash" + i);
-    trashbin.addEventListener("click", (i) => {
-      delette(i);
+  let trashbin = document.querySelectorAll(".trash");
+  for (let i = 0; i < trashbin.length; i++) {
+    trashbin[i].addEventListener("click", function (i) {
+      console.log(i.target.id);
+      let index = i.target.id;
+      delette(index);
     });
-    i = i + 1;
   }
 }
 
-async function delette(i) {
+async function delette(index) {
+  console.log("delette");
   const token = window.localStorage.getItem("token");
-  const post = await fetch("http://localhost:5678/api/works/" + i, {
+  const post = await fetch("http://localhost:5678/api/works/" + index, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -217,7 +220,7 @@ async function delette(i) {
       "Content-Type": "application/json;charset=utf-8",
     },
   });
-  displayGalleryModal();
+  modal();
   displayDom();
 }
 
@@ -272,12 +275,13 @@ async function modalPicture(categories) {
   pictureDiv2.appendChild(inputCategorie);
   const categories2 = await getCategory();
   for (cat of categories2) {
-    let option = document.createElement("option");
-    option.setAttribute("value", cat);
-
-    option.classList.add("option");
-    let inputCategoriePlace = document.querySelector(".inputCategories");
-    inputCategoriePlace.appendChild(option);
-    option.textContent = cat.name;
+    if (cat.id > 0) {
+      let option = document.createElement("option");
+      option.setAttribute("value", cat);
+      option.classList.add("option");
+      let inputCategoriePlace = document.querySelector(".inputCategories");
+      inputCategoriePlace.appendChild(option);
+      option.textContent = cat.name;
+    }
   }
 }
