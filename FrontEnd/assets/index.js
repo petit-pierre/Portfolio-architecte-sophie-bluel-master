@@ -289,7 +289,7 @@ async function modalPicture(categories) {
   for (cat of categories2) {
     if (cat.id > 0) {
       let option = document.createElement("option");
-      option.setAttribute("value", cat);
+      option.setAttribute("value", cat.name);
       option.classList.add("option");
       let inputCategoriePlace = document.querySelector(".inputCategories");
       inputCategoriePlace.appendChild(option);
@@ -306,19 +306,85 @@ async function modalPicture(categories) {
   const line = document.querySelector(".line");
   bottom.append(pictureButton);
 
+  validate(bluePicture, buttonPictureAdd, labelForButton);
+}
+
+function validate(bluePicture, buttonPictureAdd, labelForButton) {
+  let title = document.querySelector(".inputText");
+  let category = document.querySelector(".inputCategories");
+  let button = document.querySelector(".pictureButton");
+
   let imageDownload = document.getElementById("file");
   imageDownload.addEventListener("change", (event) => {
     const imagePath = event.target.value;
     const fileList = event.target.files;
-    console.log(fileList, imagePath);
     const userPicture = document.createElement("img");
     userPicture.file = file;
-    console.log(userPicture.file);
     objectURL = URL.createObjectURL(fileList[0]);
     userPicture.setAttribute("src", objectURL);
     userPicture.classList.add("userPicture");
     bluePicture.appendChild(userPicture);
-    buttonPictureAdd.remove();
+    buttonPictureAdd.classList.add("hidden");
     labelForButton.remove();
+    let image = document.querySelector(".userPicture");
+    if (title.value != "" && image.src != "") {
+      console.log("j'ai uploadé");
+      button.classList.remove("inactive");
+
+      send(title, image, category);
+    }
   });
+
+  title.addEventListener("change", () => {
+    let image = document.querySelector(".userPicture");
+    if (image.src != "") {
+      send(title, image, category);
+    }
+  });
+}
+
+async function send(title, image, category, works = null) {
+  if (works == null) {
+    works = await getWorks();
+  }
+  let ident = 0;
+  for (i = 0; i < works.length; i++) {
+    if (works[i].id == ident) {
+      ident++;
+    }
+  }
+  let button = document.querySelector(".pictureButton");
+  const userId = window.localStorage.getItem("userId");
+  if (title.value == "") {
+    button.classList.add("inactive");
+  }
+  if (title.value != "" && image.src != "") {
+    button.classList.remove("inactive");
+    button.addEventListener("click", () => {
+      formData = new FormData();
+      //formData.append("id", ident);
+      formData.append("title", title.value);
+      formData.append("imageUrl", image.src);
+      formData.append("categoryId", category.value);
+      //formData.append("userId", userId);
+      console.log(formData);
+
+      submitWork(formData);
+    });
+  }
+}
+
+async function submitWork(formData) {
+  const token = window.localStorage.getItem("token");
+  const post = await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + token,
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+  });
+  let result = await post.json();
+  console.log(result);
 }

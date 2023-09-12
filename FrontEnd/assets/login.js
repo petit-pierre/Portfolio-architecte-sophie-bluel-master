@@ -13,7 +13,9 @@ async function post() {
   if (result.token == null) {
     error();
   } else {
+    console.log(result.userId);
     window.localStorage.setItem("token", result.token);
+    window.localStorage.setItem("userId", result.userId);
     document.location.href = "./index.html";
   }
 }
