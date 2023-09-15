@@ -159,7 +159,11 @@ function modal() {
   //fermeture de la modal (bug avec la section de code ci dessous)
 
   modalContainer.addEventListener("click", (event) => {
-    if (!event.target.closest(".modal-wrapper")) {
+    let arrowLeft = document.querySelector(".arrowLeft");
+    if (
+      !event.target.closest(".modal-wrapper") &&
+      !event.target.closest(".arrowLeft")
+    ) {
       console.log(event.target);
       console.log(modal.contains(event.target));
       console.log(modal);
@@ -237,7 +241,7 @@ async function modalPicture() {
   arrowLeft.classList.add("arrowLeft");
   logoDiv.appendChild(arrowLeft);
   arrowLeft.addEventListener("click", () => {
-    displayGalleryModal();
+    modal();
   });
   const photos = document.querySelector(".modalGallery");
   photos.remove();
