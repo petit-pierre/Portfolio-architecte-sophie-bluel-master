@@ -10,11 +10,11 @@
     background: rgba(0, 0, 0, 0.2);
 }
 
-.hiddene {
+/*.hiddene {
     background: rgba(0, 0, 0, 0);
     width: 0%;
     height: 0%;
-}
+}*/
 
 .modal-wrapper {
     background-color: white;
@@ -85,7 +85,7 @@
     position: relative;
 }
 
-.fig1 {
+.figEdit {
     position: relative;
     left: -10px;
 }

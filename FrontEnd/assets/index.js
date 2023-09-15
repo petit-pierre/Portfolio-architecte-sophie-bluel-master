@@ -198,7 +198,7 @@ async function displayGalleryModal(works = null) {
   gallery.innerHTML = workElement;
   let fig = document.querySelector(".fig");
   fig.innerHTML =
-    '<figcaption class = "fig fig1">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
+    '<figcaption class = "fig figEdit">éditer</figcaption><img class="galLogo crossedArrow"src="./assets/icons/arrows-up-down-left-right.png"> ';
 }
 
 async function trash(works = null) {
