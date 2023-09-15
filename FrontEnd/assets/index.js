@@ -104,12 +104,12 @@ function login() {
     logout.classList.remove("hidden");
     let modif = document.querySelector(".modif");
     modif.classList.remove("hidden");
-    let modif2 = document.querySelector(".modif2");
-    modif2.classList.remove("hidden");
-    let modifier = document.querySelector(".modifier");
-    modifier.classList.remove("hidden");
-    let modifier2 = document.querySelector(".modifier2");
-    modifier2.classList.remove("hidden");
+    let modifActive = document.querySelector(".modifActive");
+    modifActive.classList.remove("hidden");
+    //let modifier = document.querySelector(".modifier");
+    //modifier.classList.remove("hidden");
+    //let modifier2 = document.querySelector(".modifier2");
+    //modifier2.classList.remove("hidden");
     let buttonsCategories = document.querySelector(".buttonsCategories");
     buttonsCategories.classList.add("hidden");
     let logedout = document.querySelector(".logedout");
@@ -124,12 +124,12 @@ function login() {
       logout.classList.add("hidden");
       let modif = document.querySelector(".modif");
       modif.classList.add("hidden");
-      let modif2 = document.querySelector(".modif2");
-      modif2.classList.add("hidden");
-      let modifier = document.querySelector(".modifier");
-      modifier.classList.add("hidden");
-      let modifier2 = document.querySelector(".modifier2");
-      modifier2.classList.add("hidden");
+      let modifActive = document.querySelector(".modifActive");
+      modifActive.classList.add("hidden");
+      //let modifier = document.querySelector(".modifier");
+      //modifier.classList.add("hidden");
+      //let modifier2 = document.querySelector(".modifier2");
+      //modifier2.classList.add("hidden");
       let buttonsCategories = document.querySelector(".buttonsCategories");
       buttonsCategories.classList.remove("hidden");
     });
@@ -137,20 +137,20 @@ function login() {
 }
 
 function startModal() {
-  modif2 = document.querySelector(".modif2");
-  modif2.addEventListener("click", () => {
+  modifActive = document.querySelector(".modifActive");
+  modifActive.addEventListener("click", () => {
     modal();
   });
-  modifier2 = document.querySelector(".modifier2");
-  modifier2.addEventListener("click", () => {
-    modal();
-  });
+  //modifier2 = document.querySelector(".modifier2");
+  //modifier2.addEventListener("click", () => {
+  //  modal();
+  //});
 }
 
 function modal() {
   //affichage de la modal
   let modalContainer = document.querySelector(".modal");
-  modalContainer.classList.remove("hiddene");
+  modalContainer.classList.remove("hidden");
   let modal = document.querySelector(".modal-wrapper");
   modal.classList.remove("hidden");
 
@@ -159,16 +159,19 @@ function modal() {
   //fermeture de la modal (bug avec la section de code ci dessous)
 
   modalContainer.addEventListener("click", (event) => {
-    if (!modal.contains(event.target)) {
+    if (!event.target.closest(".modal-wrapper")) {
+      console.log(event.target);
+      console.log(modal.contains(event.target));
+      console.log(modal);
       modal.classList.add("hidden");
-      modalContainer.classList.add("hiddene");
+      modalContainer.classList.add("hidden");
     }
   });
 
   let cross = document.querySelector(".cross");
   cross.addEventListener("click", () => {
     modal.classList.add("hidden");
-    modalContainer.classList.add("hiddene");
+    modalContainer.classList.add("hidden");
   });
   let buttonPostPicture = document.querySelector(".modalButton");
   buttonPostPicture.addEventListener("click", () => {
@@ -227,14 +230,14 @@ async function delette(index) {
   displayDom();
 }
 
-async function modalPicture(categories) {
+async function modalPicture() {
   let logoDiv = document.querySelector(".logos");
   const arrowLeft = document.createElement("img");
   arrowLeft.setAttribute("src", "./assets/icons/ArrowLeft.png");
   arrowLeft.classList.add("arrowLeft");
   logoDiv.appendChild(arrowLeft);
   arrowLeft.addEventListener("click", () => {
-    modal();
+    displayGalleryModal();
   });
   const photos = document.querySelector(".modalGallery");
   photos.remove();
@@ -289,7 +292,7 @@ async function modalPicture(categories) {
   for (cat of categories2) {
     if (cat.id > 0) {
       let option = document.createElement("option");
-      option.setAttribute("value", cat.name);
+      option.setAttribute("value", cat.id);
       option.classList.add("option");
       let inputCategoriePlace = document.querySelector(".inputCategories");
       inputCategoriePlace.appendChild(option);
@@ -313,7 +316,6 @@ function validate(bluePicture, buttonPictureAdd, labelForButton) {
   let title = document.querySelector(".inputText");
   let category = document.querySelector(".inputCategories");
   let button = document.querySelector(".pictureButton");
-
   let imageDownload = document.getElementById("file");
   imageDownload.addEventListener("change", (event) => {
     const imagePath = event.target.value;
@@ -331,28 +333,27 @@ function validate(bluePicture, buttonPictureAdd, labelForButton) {
       console.log("j'ai uploadé");
       button.classList.remove("inactive");
 
-      send(title, image, category);
+      creatFormdata(title, image, category);
     }
   });
-
   title.addEventListener("change", () => {
     let image = document.querySelector(".userPicture");
     if (image.src != "") {
-      send(title, image, category);
+      creatFormdata(title, image, category);
     }
   });
 }
 
-async function send(title, image, category, works = null) {
+async function creatFormdata(title, image, category, works = null) {
   if (works == null) {
     works = await getWorks();
   }
-  let ident = 0;
+  /*let ident = 0;
   for (i = 0; i < works.length; i++) {
     if (works[i].id == ident) {
       ident++;
     }
-  }
+  }*/
   let button = document.querySelector(".pictureButton");
   const userId = window.localStorage.getItem("userId");
   if (title.value == "") {
@@ -363,12 +364,13 @@ async function send(title, image, category, works = null) {
     button.addEventListener("click", () => {
       formData = new FormData();
       //formData.append("id", ident);
+      let photo = document.querySelector('input[type="file"]');
+      console.log(photo.files[0]);
+      formData.append("image", photo.files[0]);
       formData.append("title", title.value);
-      formData.append("imageUrl", image.src);
-      formData.append("categoryId", category.value);
+      formData.append("category", category.value);
       //formData.append("userId", userId);
       console.log(formData);
-
       submitWork(formData);
     });
   }
@@ -387,4 +389,5 @@ async function submitWork(formData) {
   });
   let result = await post.json();
   console.log(result);
+  displayGalleryModal();
 }

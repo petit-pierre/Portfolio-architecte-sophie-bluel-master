@@ -39,17 +39,31 @@
 	padding-top: 10px;
 	margin-bottom: -5px;
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
 }
 
-.modif2 {
+.modif p {
+	margin-top: 4px;
+}
+
+.modifActive {
 	width: 20px;
 	height: 20px;
 	margin-left: 20px;
 	padding-top: 6px;
 	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
 }
 
-.modifier {
+.modifActive p {
+	margin-top: 4px;
+}
+
+/*.modifier {
 	display: inline;
 	margin-left: 10px;
 	cursor: pointer;
@@ -59,7 +73,7 @@
 	margin-top: 8px;
 	margin-left: 10px;
 	cursor: pointer;
-}
+}*/
 
 .justif {
 	display: flex;
@@ -68,7 +82,7 @@
 }
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 .liens {
