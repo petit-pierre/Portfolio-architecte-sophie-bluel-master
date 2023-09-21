@@ -387,11 +387,12 @@ async function submitWork(formData) {
     headers: {
       Accept: "application/json",
       Authorization: "Bearer " + token,
-      "Content-Type": "multipart/form-data",
+      //"Content-Type": "multipart/form-data",
     },
     body: formData,
   });
   let result = await post.json();
   console.log(result);
   displayGalleryModal();
+  displayDom();
 }
