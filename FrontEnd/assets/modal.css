@@ -181,8 +181,11 @@
     width: 420px;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-    margin-top: 20px;
+    margin-top: 10px;
     background-color: white;
+    height: 50px;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .option {
